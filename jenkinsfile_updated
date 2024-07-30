@@ -5,14 +5,14 @@ pipeline {
         jdk 'jdk17'
         maven 'maven3'
     }
-    environment {
+       environment {
         SCANNER_HOME= tool 'sonar-scanner'
     }
-    
+   
     stages {
         stage('GIT CHECKOUT') {
             steps {
-               git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/VM2322/Boardgame.git'
+               git branch: 'main', url: 'https://github.com/VM2322/Vivek-s-Gaming-Application'
             }
         }
     
@@ -28,16 +28,15 @@ pipeline {
             }
         }
         
-        stage('TRIVY FILESYSTEM SCAN') {
+            stage('TRIVY FILESYSTEM SCAN') {
             steps {
                 sh "trivy fs --format table -o trivy-fs-report.html ."
             }
         }
-        
-        stage('SONARQUBE ANALYSIS') {
+          stage('SONARQUBE ANALYSIS') {
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Calculator -Dsonar.projectKey=Calculator\
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Gaming -Dsonar.projectKey=Gaming\
                             -Dsonar.java.binaries=. '''
                 }
             }
@@ -51,6 +50,7 @@ pipeline {
             }
         }
         
+        
         stage('MAVEN BUILD') {
             steps {
                sh "mvn package"
@@ -61,7 +61,7 @@ pipeline {
             steps {
                script {
                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                            sh "docker build -t vm2322/gaming:latest ."
+                            sh "docker build -t VM2322/gaming:latest ."
                     }
                }
             }
@@ -73,9 +73,9 @@ pipeline {
             }
         }   
             
-    stage('DOCKER DEPLOYMENT') {
+        stage('DOCKER DEPLOYMENT') {
             steps {
-                sh "docker run -td -p 8492:8080 VM2322/gaming:latest"
+                sh "docker run -d -p 8093:8080 VM2322/gaming:latest"
             }
         }   
     }
