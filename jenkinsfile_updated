@@ -75,7 +75,7 @@ pipeline {
             
     stage('DOCKER DEPLOYMENT') {
             steps {
-                sh "docker run -td -p 8094:8080 VM2322/gaming:latest"
+                sh "docker run -td -p 8093:8080 VM2322/gaming:latest"
             }
         }   
     }
