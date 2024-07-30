@@ -78,36 +78,12 @@ pipeline {
                 sh "docker run -d -p 9090:8080 mygame12/gaming:latest"
             }
         }   
-        post {
-    always {
-        echo 'Cleaning up...'
-        sh 'docker system prune -f' // Clean up Docker resources
-    }
-    success {
-        emailext (
-            subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-            body: """\
-Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' succeeded.
 
-Build URL: ${env.BUILD_URL}
-            """,
-            to: 'srirammurugan98@gmail.com'
-        )
-    }
-    failure {
-        emailext (
-            subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-            body: """\
-Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' failed.
-
-Build URL: ${env.BUILD_URL}
-
-Please check the Jenkins build logs for more details.
-            """,
-            to: 'srirammurugan98@gmail.com'
-        )
-    }
-}
+        post{
+            success{
+            emailext body: '', subject: 'email from jenkins', to: 'srirammurugan98@gmail.com'
+            }
+        }
 
     }
 }
