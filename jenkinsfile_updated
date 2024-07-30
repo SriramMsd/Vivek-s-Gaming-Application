@@ -61,7 +61,7 @@ pipeline {
             steps {
                script {
                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                            sh "docker build -t VM2322/gaming:latest ."
+                            sh "docker build -t vm2322/gaming:latest ."
                     }
                }
             }
