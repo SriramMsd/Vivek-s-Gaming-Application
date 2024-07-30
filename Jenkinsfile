@@ -76,7 +76,7 @@ pipeline {
 
         stage('DOCKER DEPLOYMENT') {
             steps {
-                sh "docker run -d -p 9090:8080 mygame12/gaming:latest"
+                sh "docker run -d -p 1234:8080 mygame12/gaming:latest"
             }
         }   
     }
