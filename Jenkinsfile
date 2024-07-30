@@ -61,7 +61,7 @@ pipeline {
             steps {
                script {
                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                            sh "docker build -t VM2322/gaming:latest ."
+                            sh "docker build -t mygame12/gaming:latest ."
                     }
                }
             }
@@ -75,7 +75,7 @@ pipeline {
             
         stage('DOCKER DEPLOYMENT') {
             steps {
-                sh "docker run -d -p 8093:8080 VM2322/gaming:latest"
+                sh "docker run -d -p 9090:8080 mygame12/gaming:latest"
             }
         }   
     }
